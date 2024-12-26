@@ -1,0 +1,8 @@
+.home-container {
+    height: 100%;  /* Ensure the container takes up at least the full height of the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centers content vertically */
+    padding: 20px;
+  }
+  
