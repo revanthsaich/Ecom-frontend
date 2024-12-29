@@ -9,12 +9,11 @@ import {
   FooterTitle,
 } from "flowbite-react";
 import { BsLinkedin , BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
-
 import React from 'react'
 
 const FooterBar = () => {
   return (
-    <Footer container>
+    <Footer container >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>

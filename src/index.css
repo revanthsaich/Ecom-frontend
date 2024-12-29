@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @import 'flowbite/dist/flowbite.min.css';
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app-container {
+  height: 100%;
+}
