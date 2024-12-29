@@ -10,14 +10,20 @@ import {
     NavbarLink,
     NavbarToggle,
   } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import logo from "../../assets/logo.png";
   const Header = () => {
+
+    let navigate =useNavigate();
+    function goToHome(){
+        navigate('/')
+    }
     return (
       <section>
       <Navbar fluid rounded>
         {/* Brand Section */}
-        <NavbarBrand href="https://flowbite-react.com" className="p-4">
+        <NavbarBrand onClick={goToHome} className="p-4 cursor-pointer no-underline">
           <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">SHOP APP</span>
         </NavbarBrand>
@@ -48,9 +54,9 @@ import logo from "../../assets/logo.png";
         
         {/* Navigation Links */}
         <NavbarCollapse>
-          <NavbarLink href="#" className="text-lg font-normal no-underline hover:underline font-sans">Home</NavbarLink>
-          <NavbarLink href="#" className="text-lg font-normal no-underline hover:underline font-sans">Products</NavbarLink>
-          <NavbarLink href="#" className="text-lg font-normal no-underline hover:underline font-sans">Contact</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/')} className="text-lg font-normal no-underline font-sans cursor-pointer">Home</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/products')} className="text-lg font-normal no-underline font-sans cursor-pointer">Products</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/contact')} className="text-lg font-normal no-underline font-sans cursor-pointer">Contact</NavbarLink>
         </NavbarCollapse>
   
         {/* Search Box with Icon */}

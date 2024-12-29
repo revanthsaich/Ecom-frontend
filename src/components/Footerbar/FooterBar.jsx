@@ -8,7 +8,7 @@ import {
   FooterLinkGroup,
   FooterTitle,
 } from "flowbite-react";
-import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
+import { BsLinkedin , BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
 import React from 'react'
 
@@ -34,10 +34,11 @@ const FooterBar = () => {
               </FooterLinkGroup>
             </div>
             <div>
-              <FooterTitle title="Follow us" />
+              <FooterTitle title="Follow me" />
               <FooterLinkGroup col>
-                <FooterLink href="https://instagram.com/revanthsai_05">Instagram</FooterLink>
+                <FooterLink href="https://www.linkedin.com/in/revanth-sai-chaparala-000270301/">LinkedIn</FooterLink>
                 <FooterLink href="https://github.com/revanthsaich">Github</FooterLink>
+                <FooterLink href="https://instagram.com/revanthsai_05">Instagram</FooterLink>
               </FooterLinkGroup>
             </div>
             <div>
@@ -53,7 +54,7 @@ const FooterBar = () => {
         <div className="w-full sm:flex sm:items-center sm:justify-between">
           <FooterCopyright href="#" by="Yet-to-be-decided" year={2022} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <FooterIcon href="https://facebook.com" icon={BsFacebook} />
+            <FooterIcon href="https://www.linkedin.com/in/revanth-sai-chaparala-000270301/" icon={BsLinkedin} />
             <FooterIcon href="https://instagram.com/revanthsai_05" icon={BsInstagram} />
             <FooterIcon href="https://github.com/revanthsaich" icon={BsGithub} />
           </div>

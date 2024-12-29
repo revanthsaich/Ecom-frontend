@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const sliderItems = [
@@ -25,18 +25,14 @@ const sliderItems = [
     bg: "fbf0f4",
   },
 ];
+
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   position: relative;
   overflow: hidden;
-
-  @media only screen and (max-width: 380px) {
-    display: none;
-  }
 `;
-
 
 const Arrow = styled.div`
   width: 50px;
@@ -57,12 +53,15 @@ const Arrow = styled.div`
   z-index: 2;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs((props) => ({
+  'data-slide-index': props.slideIndex, // For debugging purposes (optional)
+}))`
   height: 100%;
   display: flex;
-  transition: all 1.5s ease;
+  transition: ${(props) => (props.isTransitioning ? "all 0.8s ease" : "none")};
   transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
+
 
 const Slide = styled.div`
   width: 100vw;
@@ -79,8 +78,8 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   height: 80%;
-  width:auto;
-  object-fit:cover;
+  width: auto;
+  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`
@@ -107,41 +106,90 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(1); // Start at the first real slide
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [manualInteraction, setManualInteraction] = useState(false);
+
+  const totalSlides = sliderItems.length;
+
+  // Create clones
+  const slidesWithClones = [
+    sliderItems[totalSlides - 1], // Clone of the last slide
+    ...sliderItems,
+    sliderItems[0], // Clone of the first slide
+  ];
 
   const handleClick = (direction) => {
+    setManualInteraction(true); // Mark manual interaction
     if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+      setSlideIndex(slideIndex - 1);
     } else {
-      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+      setSlideIndex(slideIndex + 1);
+    }
+    setIsTransitioning(true);
+  };
+
+  const handleTransitionEnd = () => {
+    // Handle reset to the real first or last slide seamlessly
+    if (slideIndex === 0) {
+      setIsTransitioning(false);
+      setSlideIndex(totalSlides);
+    } else if (slideIndex === totalSlides + 1) {
+      setIsTransitioning(false);
+      setSlideIndex(1);
     }
   };
 
+  useEffect(() => {
+    // Reset auto-slide timer whenever there is a manual interaction
+    if (manualInteraction) {
+      const timeout = setTimeout(() => {
+        setManualInteraction(false); // Clear manual interaction
+      }, 1000); // Wait before resuming auto-slide
+
+      return () => clearTimeout(timeout);
+    }
+  }, [manualInteraction]);
+
+  useEffect(() => {
+    // Auto-slide only when there's no manual interaction
+    if (!manualInteraction) {
+      const interval = setInterval(() => {
+        setSlideIndex((prev) => prev + 1); // Auto-slide forward
+        setIsTransitioning(true);
+      }, 2000);
+
+      return () => clearInterval(interval); // Cleanup on unmount
+    }
+  }, [manualInteraction]);
+
   return (
-    <section>
-      <Container>
-        <Arrow direction="left" onClick={() => handleClick("left")}>
-          <ArrowLeftOutlined />
-        </Arrow>
-        <Wrapper slideIndex={slideIndex}>
-          {sliderItems.map((item) => (
-            <Slide bg={item.bg} key={item.id}>
-              <ImgContainer>
-                <Image src={item.img} />
-              </ImgContainer>
-              <InfoContainer>
-                <Title>{item.title}</Title>
-                <Desc>{item.desc}</Desc>
-                <Button>SHOW NOW</Button>
-              </InfoContainer>
-            </Slide>
-          ))}
-        </Wrapper>
-        <Arrow direction="right" onClick={() => handleClick("right")}>
-          <ArrowRightOutlined />
-        </Arrow>
-      </Container>
-    </section>
+    <Container>
+      <Arrow direction="left" onClick={() => handleClick("left")}>
+        <ArrowLeftOutlined />
+      </Arrow>
+      <Wrapper
+        slideIndex={slideIndex}
+        isTransitioning={isTransitioning}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        {slidesWithClones.map((item, index) => (
+          <Slide key={index} bg={item.bg}>
+            <ImgContainer>
+              <Image src={item.img} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
+              <Button>SHOW NOW</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
+      </Wrapper>
+      <Arrow direction="right" onClick={() => handleClick("right")}>
+        <ArrowRightOutlined />
+      </Arrow>
+    </Container>
   );
 };
 
