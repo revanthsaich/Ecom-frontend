@@ -5,15 +5,15 @@ const Contact = () => {
   return (
 
     <div className="container h-full flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">Contact Me</h1>
-      <div className="flex space-x-8">
+      <h1 className="text-5xl font-bold text-gray-800 mb-8">Contact Me</h1>
+      <div className="icons flex space-x-8">
         <a
           href="https://github.com/revanthsaich"
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center justify-center text-gray-800 hover:text-gray-600 transition"
         >
-          <FaGithub size={80} />
+          <FaGithub size={120} />
           <span className="text-lg mt-2">GitHub</span>
         </a>
 
@@ -23,7 +23,7 @@ const Contact = () => {
           rel="noopener noreferrer"
           className="flex flex-col items-center justify-center text-gray-800 hover:text-gray-600 transition"
         >
-          <FaLinkedin size={80} />
+          <FaLinkedin size={120} />
           <span className="text-lg mt-2">LinkedIn</span>
         </a>
       </div>

@@ -1,28 +1,31 @@
 import {
-    Avatar,
-    Dropdown,
-    DropdownDivider,
-    DropdownHeader,
-    DropdownItem,
-    Navbar,
-    NavbarBrand,
-    NavbarCollapse,
-    NavbarLink,
-    NavbarToggle,
-  } from "flowbite-react";
+  Avatar,
+  Dropdown,
+  DropdownDivider,
+  DropdownHeader,
+  DropdownItem,
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+} from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import logo from "../../assets/logo.png";
-  const Header = () => {
 
-    let navigate =useNavigate();
-    function goToHome(){
-        navigate('/')
-    }
-    return (
-      <section>
-      <Navbar fluid rounded>
-        {/* Brand Section */}
+const Header = () => {
+  let navigate = useNavigate();
+
+  function goToHome() {
+    navigate('/');
+  }
+
+  return (
+    <section>
+      {/* Fixed Navbar */}
+      <Navbar fluid rounded className="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 shadow-md">
+      {/* Brand Section */}
         <NavbarBrand onClick={goToHome} className="p-4 cursor-pointer no-underline">
           <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">SHOP APP</span>
@@ -88,9 +91,13 @@ import logo from "../../assets/logo.png";
           </div>
         </div>
       </Navbar>
-      </section>
-    );
-  };
-  
-  export default Header;
-  
+
+      {/* Content section */}
+      <div className="mt-[80px]"> {/* Margin added to ensure content is below fixed header */}
+        {/* Your content like products goes here */}
+      </div>
+    </section>
+  );
+};
+
+export default Header;

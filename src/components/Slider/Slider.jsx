@@ -30,6 +30,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  margin-top:120px;
   position: relative;
   overflow: hidden;
 `;
@@ -164,7 +165,7 @@ const Slider = () => {
   }, [manualInteraction]);
 
   return (
-    <Container>
+    <Container className="slider-container">
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>

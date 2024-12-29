@@ -1,4 +1,5 @@
 import React from 'react'
+import ProductsFilter from '../../components/ProductsFilter/ProductsFilter';
 import './Products.css'
 const Products = () => {
   const data = [
@@ -99,12 +100,14 @@ const Products = () => {
       price: "$150.00",
     },
   ];
-
-
-
+  
+  
+  
   return (
-    <div className="container">
-      <div className="mb-5 grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
+    <div className="container pt-4 px-5 mb-5 bg-white ">
+
+      <ProductsFilter className="filter"/>
+      <div className="prods mb-5 grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
         {data.map((item, index) => (
           <div key={index} className="relative group">
             <div className="overflow-hidden aspect-w-1 aspect-h-1 bg-white">

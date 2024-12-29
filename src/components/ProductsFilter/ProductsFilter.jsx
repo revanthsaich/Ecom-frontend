@@ -39,34 +39,35 @@ const ProductsFilter = () => {
 
     return (
         <div>
-            <h1>Products</h1>
+            <h3>Filter</h3>
 
             {/* Filter Options */}
-            <div className="filter-section">
+            <div className="filter-section bg-white w-full sm:w-4/5 md:w-3/4 lg:w-2/3">
                 <input
+                    className='mr-2 my-1'
                     type="text"
                     placeholder="Search by name"
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
 
-                <select value={priceRange} onChange={handlePriceRangeChange}>
+                <select className='mx-2 my-1' value={priceRange} onChange={handlePriceRangeChange}>
                     <option value="">All Prices</option>
                     <option value="50">Under $50</option>
                     <option value="100">Under $100</option>
                     <option value="200">Under $200</option>
                 </select>
 
-                <select value={category} onChange={handleCategoryChange}>
+                <select className='mx-2 my-1' value={category} onChange={handleCategoryChange}>
                     <option value="">All Categories</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="fashion">Fashion</option>
-                    <option value="home">Home</option>
+                    <option value="electronics">Category1</option>
+                    <option value="fashion">Category2</option>
+                    <option value="home">Category3</option>
                 </select>
             </div>
 
             {/* Product List */}
-            <div className="product-list">
+            {/* <div className="product-list">
                 {filteredProducts.map((product) => (
                     <div key={product.id} className="product-item">
                         <h2>{product.name}</h2>
@@ -74,7 +75,7 @@ const ProductsFilter = () => {
                         <p>Category: {product.category}</p>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };
