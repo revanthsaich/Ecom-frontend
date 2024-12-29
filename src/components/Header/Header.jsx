@@ -54,9 +54,9 @@ import logo from "../../assets/logo.png";
         
         {/* Navigation Links */}
         <NavbarCollapse>
-          <NavbarLink href="#" onClick={() => navigate('/')} className="text-lg font-normal no-underline font-sans cursor-pointer">Home</NavbarLink>
-          <NavbarLink href="#" onClick={() => navigate('/products')} className="text-lg font-normal no-underline font-sans cursor-pointer">Products</NavbarLink>
-          <NavbarLink href="#" onClick={() => navigate('/contact')} className="text-lg font-normal no-underline font-sans cursor-pointer">Contact</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/')} className="text-lg font-normal no-underline text-xl dark:text-white cursor-pointer">Home</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/products')} className="text-lg font-normal no-underline text-xl dark:text-whitecursor-pointer">Products</NavbarLink>
+          <NavbarLink href="#" onClick={() => navigate('/contact')} className="text-lg font-normal no-underline text-xl dark:text-white cursor-pointer">Contact</NavbarLink>
         </NavbarCollapse>
   
         {/* Search Box with Icon */}
