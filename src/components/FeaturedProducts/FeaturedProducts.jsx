@@ -1,161 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Navigate, useNavigate } from 'react-router-dom';
-const FeaturedProducts = () => {
-    const data = [
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-1.png",
-            label: "New",
-            labelStyle: "bg-white text-gray-900",
-            title: "Beoplay M5 Bluetooth Speaker",
-            rating: 4,
-            price: "$99.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-2.png",
-            label: null,
-            title: "Apple Smart Watch 6 - Special Edition",
-            rating: 5,
-            price: "$299.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-3.png",
-            label: "Sale",
-            labelStyle: "bg-gray-900 text-white",
-            title: "Beylob 90 Speaker",
-            rating: 2,
-            price: "$199.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-4.png",
-            label: "Hot",
-            labelStyle: "bg-red-500 text-white",
-            title: "Sony ZX Wireless Headphones",
-            rating: 4,
-            price: "$150.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-1.png",
-            label: "New",
-            labelStyle: "bg-white text-gray-900",
-            title: "Beoplay M5 Bluetooth Speaker",
-            rating: 4,
-            price: "$99.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-2.png",
-            label: null,
-            title: "Apple Smart Watch 6 - Special Edition",
-            rating: 5,
-            price: "$299.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-3.png",
-            label: "Sale",
-            labelStyle: "bg-gray-900 text-white",
-            title: "Beylob 90 Speaker",
-            rating: 2,
-            price: "$199.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-4.png",
-            label: "Hot",
-            labelStyle: "bg-red-500 text-white",
-            title: "Sony ZX Wireless Headphones",
-            rating: 4,
-            price: "$150.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-1.png",
-            label: "New",
-            labelStyle: "bg-white text-gray-900",
-            title: "Beoplay M5 Bluetooth Speaker",
-            rating: 4,
-            price: "$99.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-2.png",
-            label: null,
-            title: "Apple Smart Watch 6 - Special Edition",
-            rating: 5,
-            price: "$299.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-3.png",
-            label: "Sale",
-            labelStyle: "bg-gray-900 text-white",
-            title: "Beylob 90 Speaker",
-            rating: 2,
-            price: "$199.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-4.png",
-            label: "Hot",
-            labelStyle: "bg-red-500 text-white",
-            title: "Sony ZX Wireless Headphones",
-            rating: 4,
-            price: "$150.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-1.png",
-            label: "New",
-            labelStyle: "bg-white text-gray-900",
-            title: "Beoplay M5 Bluetooth Speaker",
-            rating: 4,
-            price: "$99.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-2.png",
-            label: null,
-            title: "Apple Smart Watch 6 - Special Edition",
-            rating: 5,
-            price: "$299.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-3.png",
-            label: "Sale",
-            labelStyle: "bg-gray-900 text-white",
-            title: "Beylob 90 Speaker",
-            rating: 2,
-            price: "$199.00",
-        },
-        {
-            image: "https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-4.png",
-            label: "Hot",
-            labelStyle: "bg-red-500 text-white",
-            title: "Sony ZX Wireless Headphones",
-            rating: 4,
-            price: "$150.00",
-        },
-        // Add more products here if necessary for testing
-    ];
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-    let navigate= useNavigate();
-    const [visibleItems, setVisibleItems] = useState(8);
+const FeaturedProducts = () => {
+    const [data, setData] = useState([]);
+    const [visibleItems, setVisibleItems] = useState(4);
     const [isProductsPage, setIsProductsPage] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchFeaturedProducts = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/products/featured/');
+                setData(response.data.featured_products);
+            } catch (error) {
+                console.error('Error fetching featured products:', error);
+            }
+        };
+
+        fetchFeaturedProducts();
+    }, []);
 
     const handleMoreItemsClick = () => {
-        if (visibleItems === 8) {
-            setVisibleItems(16);
-            setTimeout(() => {
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }, 100);
+        if (data.length === 4) {
+            navigate('/products');
         } else {
-            
-            setIsProductsPage(true);
+            if (visibleItems === 4) {
+                setVisibleItems(8);
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.documentElement.scrollHeight,
+                        behavior: 'smooth',
+                    });
+                }, 100);
+            } else {
+                setIsProductsPage(true);
+            }
         }
     };
+
     if (isProductsPage) {
-        navigate('/products')
+        navigate('/products');
         console.log("Navigating to ProductsPage");
     }
 
     return (
-        <div>   
-
+        <div>
             <section className="flex flex-col align-center items-center py-12 bg-white sm:py-16 lg:py-20">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="max-w-md mx-auto text-center">
@@ -165,7 +56,6 @@ const FeaturedProducts = () => {
                         </p>
                     </div>
 
-                    
                     <div className="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
                         {data.slice(0, visibleItems).map((item, index) => (
                             <div key={index} className="relative group">
@@ -176,11 +66,6 @@ const FeaturedProducts = () => {
                                         alt={item.title}
                                     />
                                 </div>
-                                {item.label && (
-                                    <div className={`absolute left-3 top-3 px-1.5 py-1 text-[8px] sm:px-3 sm:py-1.5 sm:text-xs font-bold tracking-wide uppercase rounded-full ${item.labelStyle}`}>
-                                        {item.label}
-                                    </div>
-                                )}
                                 <div className="flex items-start justify-between mt-4 space-x-4">
                                     <div>
                                         <h3 className="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
@@ -222,7 +107,6 @@ const FeaturedProducts = () => {
                     More Items
                 </button>
             </section>
-
         </div>
     );
 };

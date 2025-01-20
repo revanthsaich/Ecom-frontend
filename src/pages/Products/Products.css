@@ -1,34 +1,67 @@
-.container {
-  display: flex;
-  background-color: #f9fafb;
-  margin-top: 120px;
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    /* Light grey */
+    border-top: 4px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    display: block;
+}
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    background-color: #f9fafb;
+    margin-top: 120px;
 }
 
 .filter {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 15%; 
-  height: 100%;
-  background-color: #f9fafb;
-  padding: 20px;
-  overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    background-color: #f9fafb;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+/* Add this CSS to your Products.css */
+
+.product-image {
+    height: 350px;
+    /* Set the desired height */
+    object-fit: cover;
+    /* Ensures that images cover the area without distorting */
+    width: 100%;
+    /* Make sure the image fills the container's width */
 }
 
 .prods-container {
-  margin-left: 15%; 
-  width: 85%;
-  padding: 20px;
-  overflow-y: scroll; 
-  height: 100vh; 
+    margin-left: 15%;
+    width: 85%;
+    padding: 20px;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 .prods .prods-item {
-  margin-bottom: 20px;
-  transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
 }
 
 .prods .prods-item:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }

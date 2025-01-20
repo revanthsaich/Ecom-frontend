@@ -53,16 +53,16 @@ const ProductsFilter = () => {
 
                 <select className='mx-2 my-1' value={priceRange} onChange={handlePriceRangeChange}>
                     <option value="">All Prices</option>
-                    <option value="50">Under $50</option>
-                    <option value="100">Under $100</option>
-                    <option value="200">Under $200</option>
+                    <option value="50">Under ₹500</option>
+                    <option value="100">Under ₹5000</option>
+                    <option value="200">Under ₹10000</option>
                 </select>
 
                 <select className='mx-2 my-1' value={category} onChange={handleCategoryChange}>
                     <option value="">All Categories</option>
-                    <option value="electronics">Category1</option>
-                    <option value="fashion">Category2</option>
-                    <option value="home">Category3</option>
+                    <option value="electronics">Clothing</option>
+                    <option value="fashion">Furniture</option>
+                    <option value="home">Electronics</option>
                 </select>
             </div>
 
