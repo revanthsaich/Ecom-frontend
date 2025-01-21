@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+import './FeaturedProducts.css';
 
 const FeaturedProducts = () => {
     const [data, setData] = useState([]);
@@ -52,27 +54,29 @@ const FeaturedProducts = () => {
                     <div className="max-w-md mx-auto text-center">
                         <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Our featured items</h2>
                         <p className="mt-4 text-base font-normal leading-7 text-gray-600">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus faucibus massa dignissim tempus.
+                            Our most featured items to buy online. Discover the best products from our store.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
+                    <div className="prods grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
                         {data.slice(0, visibleItems).map((item, index) => (
                             <div key={index} className="relative group">
                                 <div className="overflow-hidden aspect-w-1 aspect-h-1">
                                     <img
-                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+                                        className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125 product-image"
                                         src={item.image}
-                                        alt={item.title}
+                                        alt={item.name}
                                     />
                                 </div>
                                 <div className="flex items-start justify-between mt-4 space-x-4">
                                     <div>
                                         <h3 className="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
-                                            <a href="#" title={item.title}>
-                                                {item.title}
+                                        <Link to={`/products/${item.slug}`}>
+                                            <a href="#" name={item.name}>
+                                                {item.name}
                                                 <span className="absolute inset-0" aria-hidden="true"></span>
                                             </a>
+                                        </Link>
                                         </h3>
                                         <div className="flex items-center mt-2.5 space-x-px">
                                             {[...Array(5)].map((_, i) => (

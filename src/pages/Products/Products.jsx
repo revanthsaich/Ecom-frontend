@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import ProductsFilter from '../../components/ProductsFilter/ProductsFilter';
 import './Products.css';
 
@@ -45,6 +46,7 @@ const Products = () => {
       <div className="prods mb-5 grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
         {products.length > 0 ? (
           products.map((item, index) => (
+            
             <div key={index} className="relative group">
               <div className="overflow-hidden aspect-w-1 aspect-h-1 bg-white">
                 <img
@@ -56,10 +58,12 @@ const Products = () => {
               <div className="flex items-start justify-between mt-4 space-x-4">
                 <div>
                   <h3 className="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
+                  <Link to={`/products/${item.slug}`}>
                     <a href="#" name={item.name}>
                       {item.name}
                       <span className="absolute inset-0" aria-hidden="true"></span>
                     </a>
+                  </Link>
                   </h3>
                   <div className="flex items-center mt-2.5 space-x-px">
                     {[...Array(5)].map((_, i) => (

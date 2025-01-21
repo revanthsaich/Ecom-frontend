@@ -4,6 +4,7 @@ import Slider from '../Slider/Slider.jsx';
 import FeaturedProducts from '../FeaturedProducts/FeaturedProducts.jsx';
 
 const Home = () => {
+  
   return (
     <div className="home-container">
       <Slider />

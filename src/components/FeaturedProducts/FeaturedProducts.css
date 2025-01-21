@@ -1,0 +1,8 @@
+.product-image {
+    height: 250px;
+    /* Set the desired height */
+    object-fit: cover;
+    /* Ensures that images cover the area without distorting */
+    width: 100%;
+    /* Make sure the image fills the container's width */
+}
