@@ -9,15 +9,18 @@ const FeaturedProducts = () => {
     const [data, setData] = useState([]);
     const [visibleItems, setVisibleItems] = useState(4);
     const [isProductsPage, setIsProductsPage] = useState(false);
+    const [error, setError] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFeaturedProducts = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/products/featured/');
+                const response = await axios.get('https://ecommerce-backend-yv9f.onrender.com/api/products/featured/');
                 setData(response.data.featured_products);
             } catch (error) {
                 console.error('Error fetching featured products:', error);
+                setError('Error fetching featured products.');
             }
         };
 
@@ -46,7 +49,8 @@ const FeaturedProducts = () => {
         navigate('/products');
         console.log("Navigating to ProductsPage");
     }
-
+    
+    
     return (
         <div>
             <section className="flex flex-col align-center items-center py-12 bg-white sm:py-16 lg:py-20">
@@ -57,6 +61,9 @@ const FeaturedProducts = () => {
                             Our most featured items to buy online. Discover the best products from our store.
                         </p>
                     </div>
+            {error && (
+                <div className="container bg-white">{error}</div>
+            )}
 
                     <div className="prods grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
                         {data.slice(0, visibleItems).map((item, index) => (

@@ -13,7 +13,7 @@ const Products = () => {
     window.scrollTo(0, 0);
 
     axios
-      .get('http://localhost:8000/api/products/')
+      .get('https://ecommerce-backend-yv9f.onrender.com/api/products/')
       .then((response) => {
         if (response.data && response.data.length > 0) {
           setProducts(response.data);

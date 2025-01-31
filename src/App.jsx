@@ -6,6 +6,8 @@ import Home from './components/Home/Home.jsx';
 import Contact from './pages/Contact/Contact.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import Products from './pages/Products/Products.jsx';
+import Login from './pages/Auth/Login.jsx';
+import SignIn from './pages/Auth/SignIn.jsx';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import './App.css'
 import '@coreui/coreui/dist/css/coreui.min.css';
@@ -23,6 +25,8 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signin" element={<SignIn />} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

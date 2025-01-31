@@ -9,6 +9,7 @@ import {
   NavbarCollapse,
   NavbarLink,
   NavbarToggle,
+  Button,
 } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -16,16 +17,30 @@ import logo from "../../assets/logo.png";
 
 const Header = () => {
   let navigate = useNavigate();
+  
+  // Check if user is logged in (i.e., token exists in localStorage)
+  const token = localStorage.getItem("authToken");
+  const isLoggedIn = token !== null;
 
   function goToHome() {
     navigate('/');
   }
 
+  const handleAuthButtonClick = () => {
+    if (isLoggedIn) {
+      // Log out the user (remove the token from localStorage)
+      localStorage.removeItem("authToken");
+      navigate("/"); // Redirect to home or login page after logging out
+    } else {
+      navigate('/login'); // Navigate to login page if not logged in
+    }
+  };
+
   return (
     <section>
       {/* Fixed Navbar */}
       <Navbar fluid rounded className="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 shadow-md">
-      {/* Brand Section */}
+        {/* Brand Section */}
         <NavbarBrand onClick={goToHome} className="p-4 cursor-pointer no-underline">
           <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">SHOP APP</span>
@@ -33,24 +48,30 @@ const Header = () => {
         
         {/* User Dropdown and Toggle for Mobile Menu */}
         <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded className="pr-4"/>
-            }
-          >
-            <DropdownHeader>
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-            </DropdownHeader>
-            <DropdownItem>Dashboard</DropdownItem>
-            <DropdownItem>Settings</DropdownItem>
-            <DropdownItem>Earnings</DropdownItem>
-            <DropdownDivider />
-            <DropdownItem>Sign out</DropdownItem>
-          </Dropdown>
-  
+          {isLoggedIn ? (
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded className="pr-4"/>
+              }
+            >
+              <DropdownHeader>
+                <span className="block text-sm">Bonnie Green</span>
+                <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+              </DropdownHeader>
+              <DropdownItem>Dashboard</DropdownItem>
+              <DropdownItem>Settings</DropdownItem>
+              <DropdownItem>Earnings</DropdownItem>
+              <DropdownDivider />
+              <DropdownItem onClick={handleAuthButtonClick}>Log out</DropdownItem>
+            </Dropdown>
+          ) : (
+            <Button onClick={handleAuthButtonClick} className="px-4 py-2 text-sm bg-blue-600 text-white">
+              Login / Sign Up
+            </Button>
+          )}
+
           {/* Mobile Menu Toggle */}
           <NavbarToggle />
         </div>

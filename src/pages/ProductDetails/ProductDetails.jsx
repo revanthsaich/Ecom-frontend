@@ -10,7 +10,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/products/${slug}/`) 
+      .get(`https://ecommerce-backend-yv9f.onrender.com/api/products/${slug}/`) 
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
