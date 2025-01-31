@@ -11,54 +11,67 @@ import {
   NavbarToggle,
   Button,
 } from "flowbite-react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
   let navigate = useNavigate();
-  
-  // Check if user is logged in (i.e., token exists in localStorage)
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const token = localStorage.getItem("authToken");
   const isLoggedIn = token !== null;
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedEmail = localStorage.getItem("email");
+    const storedAvatarNumber = localStorage.getItem("avatarNumber");
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmail) setEmail(storedEmail);
+    if (storedAvatarNumber) {
+      setAvatarNumber(storedAvatarNumber);
+    }
+  }, []);
+
+  const handleAuthButtonClick = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("username");
+      localStorage.removeItem("email");
+      localStorage.removeItem("avatarNumber");
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
 
   function goToHome() {
     navigate('/');
   }
-
-  const handleAuthButtonClick = () => {
-    if (isLoggedIn) {
-      // Log out the user (remove the token from localStorage)
-      localStorage.removeItem("authToken");
-      navigate("/"); // Redirect to home or login page after logging out
-    } else {
-      navigate('/login'); // Navigate to login page if not logged in
-    }
-  };
+  const [avatarNumber, setAvatarNumber] = useState(1);
+  // Construct the avatar image URL using the random number
+  const avatarImageUrl = `https://flowbite.com/docs/images/people/profile-picture-${avatarNumber}.jpg`;
 
   return (
     <section>
       {/* Fixed Navbar */}
       <Navbar fluid rounded className="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 shadow-md">
-        {/* Brand Section */}
         <NavbarBrand onClick={goToHome} className="p-4 cursor-pointer no-underline">
           <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">SHOP APP</span>
         </NavbarBrand>
-        
-        {/* User Dropdown and Toggle for Mobile Menu */}
+
         <div className="flex md:order-2">
           {isLoggedIn ? (
             <Dropdown
               arrowIcon={false}
               inline
-              label={
-                <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded className="pr-4"/>
-              }
+              label={<Avatar alt="User settings" img={avatarImageUrl} rounded className="pr-4" />}
             >
               <DropdownHeader>
-                <span className="block text-sm">Bonnie Green</span>
-                <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                <span className="block text-sm">{username}</span>
+                <span className="block truncate text-sm font-medium">{email}</span> {/* Dynamic email */}
               </DropdownHeader>
               <DropdownItem>Dashboard</DropdownItem>
               <DropdownItem>Settings</DropdownItem>
@@ -72,18 +85,15 @@ const Header = () => {
             </Button>
           )}
 
-          {/* Mobile Menu Toggle */}
           <NavbarToggle />
         </div>
-        
-        {/* Navigation Links */}
+
         <NavbarCollapse>
           <NavbarLink onClick={() => navigate('/')} className="text-lg font-normal no-underline text-xl dark:text-white cursor-pointer">Home</NavbarLink>
           <NavbarLink onClick={() => navigate('/products')} className="text-lg font-normal no-underline text-xl dark:text-white cursor-pointer">Products</NavbarLink>
           <NavbarLink onClick={() => navigate('/contact')} className="text-lg font-normal no-underline text-xl dark:text-white cursor-pointer">Contact</NavbarLink>
         </NavbarCollapse>
-  
-        {/* Search Box with Icon */}
+
         <div className="flex flex-grow items-center ml-4">
           <div className="input-group flex w-full">
             <input
@@ -91,30 +101,25 @@ const Header = () => {
               type="search"
               placeholder="Search"
               style={{
-                maxWidth: '300px', 
+                maxWidth: '300px',
                 minWidth: '150px',
-                height: '38px', // Match the height of the input box and icon
+                height: '38px',
               }}
             />
-            <div
-              className="input-group-text"
-              id="btnGroupAddon2"
-              style={{
-                width: '40px', // Fixed width to match the icon size
-                height: '38px', // Match the height of the input box
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+            <div className="input-group-text" style={{
+              width: '40px',
+              height: '38px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
               <i className="fa fa-search"></i>
             </div>
           </div>
         </div>
       </Navbar>
 
-      {/* Content section */}
-      <div className="mt-[80px]"> {/* Margin added to ensure content is below fixed header */}
+      <div className="mt-[80px]">
         {/* Your content like products goes here */}
       </div>
     </section>

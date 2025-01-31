@@ -31,8 +31,11 @@ const Login = () => {
             if (response.ok) {
                 setMessage("Login successful!");
                 setIsSuccess(true);
+                const randomAvatarNumber = Math.floor(Math.random() * 5) + 1;
                 // Store token in localStorage
                 localStorage.setItem("authToken", data.token);
+                localStorage.setItem("username", formData.username);
+                localStorage.setItem("avatarNumber", randomAvatarNumber); 
                 // Redirect to the dashboard or home page
                 navigate('/'); // Update with your desired route
             } else {
