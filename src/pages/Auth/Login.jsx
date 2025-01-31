@@ -18,7 +18,7 @@ const Login = () => {
         setIsLoading(true); // Show loading state
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/users/login/", {
+            const response = await fetch("https://ecommerce-backend-yv9f.onrender.com/api/users/login/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
