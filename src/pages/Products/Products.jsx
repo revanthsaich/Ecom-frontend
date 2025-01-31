@@ -3,11 +3,19 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import ProductsFilter from '../../components/ProductsFilter/ProductsFilter';
 import './Products.css';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const token = localStorage.getItem("authToken"); 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) {
+      navigate("/signin"); 
+    }
+  }, [token, navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

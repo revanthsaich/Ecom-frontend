@@ -10,6 +10,7 @@ import {
 } from "flowbite-react";
 import { BsLinkedin , BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 import React from 'react'
+import logo from "../../assets/logo.png";
 
 const FooterBar = () => {
   return (
@@ -18,8 +19,8 @@ const FooterBar = () => {
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>
             <FooterBrand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
+              href="https://ecommerce-revanthsai.vercel.app/"
+              src={logo}
               alt="Flowbite Logo"
               name="SHOP"
             />
